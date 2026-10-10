@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Taiwan Slow Travel</title>
+  <desc id="desc">A travel-themed app icon with a mountain and sun.</desc>
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#264e43"/>
+      <stop offset="55%" stop-color="#447b68"/>
+      <stop offset="100%" stop-color="#b9c9a7"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="#f6f3ec"/>
+  <rect x="32" y="32" width="448" height="448" rx="92" fill="url(#g1)"/>
+  <circle cx="376" cy="146" r="52" fill="#f5dca8" opacity="0.9"/>
+  <path d="M92 330 L210 190 L290 258 L350 214 L420 330 Z" fill="#dfe9d5" opacity="0.96"/>
+  <path d="M110 336 L232 228 L320 310 L420 336 Z" fill="#8fb39e" opacity="0.8"/>
+  <path d="M160 294 C200 264, 246 262, 288 294" stroke="#ffffff" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.75"/>
+  <path d="M118 380 H394" stroke="#f8f4ea" stroke-width="16" stroke-linecap="round" opacity="0.9"/>
+  <circle cx="170" cy="202" r="18" fill="#f6f3ec" opacity="0.8"/>
+</svg>

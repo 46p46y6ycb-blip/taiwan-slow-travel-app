@@ -1,0 +1,18 @@
+{
+  "name": "台灣慢旅行",
+  "short_name": "慢旅行",
+  "description": "台灣慢旅行 2026–2027 旅程規劃 App",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f3ec",
+  "theme_color": "#f6f3ec",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
