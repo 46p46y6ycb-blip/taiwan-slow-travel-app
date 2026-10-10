@@ -3,355 +3,825 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f3ec">
+  <meta name="theme-color" content="#2f6656">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="台灣慢旅行">
   <meta name="description" content="台灣慢旅行 2026–2027 行程規劃 app，包含每日行程、交通、住宿、行李、預算。">
   <title>台灣慢旅行｜2026–2027</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%232f6656' width='192' height='192'/><text x='50%' y='50%' font-size='120' text-anchor='middle' dominant-baseline='central' fill='%23fff'>🏞️</text></svg>">
   <style>
-    :root{
+    :root {
       color-scheme: light dark;
-      --bg: light-dark(#f6f3ec,#171c1b);
-      --surface: light-dark(#fffdf8,#222927);
-      --surface2: light-dark(#eee9df,#2c3431);
-      --text: light-dark(#26332f,#edf1eb);
-      --muted: light-dark(#68756d,#b0bdb4);
-      --line: light-dark(#dedfd4,#3d4842);
-      --green: light-dark(#2f6656,#9bc9ad);
-      --green-dark: light-dark(#244d41,#d4edda);
-      --orange: light-dark(#c57c51,#e5a77e);
+      --bg: #f6f3ec;
+      --bg-dark: #171c1b;
+      --surface: #fffdf8;
+      --surface-dark: #222927;
+      --surface2: #eee9df;
+      --surface2-dark: #2c3431;
+      --text: #26332f;
+      --text-dark: #edf1eb;
+      --muted: #68756d;
+      --muted-dark: #b0bdb4;
+      --line: #dedfd4;
+      --line-dark: #3d4842;
+      --green: #2f6656;
+      --green-light: #9bc9ad;
+      --green-dark: #244d41;
+      --orange: #c57c51;
       --shadow: 0 12px 30px rgba(27,43,35,.08);
+      --shadow-dark: 0 12px 30px rgba(0,0,0,.3);
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC",sans-serif;line-height:1.55}
-    button,a{font:inherit}
-    button{cursor:pointer}
-    a{color:inherit}
-    .app{max-width:760px;min-height:100vh;margin:0 auto;padding-bottom:calc(88px + env(safe-area-inset-bottom));background:var(--bg)}
-    .hero{position:relative;overflow:hidden;padding:24px 20px 22px;background:linear-gradient(135deg,#264e43 0%,#447b68 55%,#b9c9a7 100%);color:#fff;border-radius:0 0 28px 28px}
-    .hero:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;right:-65px;top:-85px;background:rgba(255,255,255,.10)}
-    .hero:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;right:35px;bottom:-115px;border:1px solid rgba(255,255,255,.35)}
-    .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.82;font-weight:700}
-    .hero h1{font-size:30px;line-height:1.2;margin:8px 0 8px;letter-spacing:.02em}
-    .hero p{font-size:13px;max-width:410px;margin:0;color:rgba(255,255,255,.88)}
-    .hero-art{position:absolute;right:16px;bottom:18px;font-size:48px;filter:drop-shadow(0 5px 6px rgba(0,0,0,.14))}
-    .hero-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;position:relative;z-index:1}
-    .pill{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.12);padding:6px 10px;border-radius:99px;font-size:11px}
-    main{padding:18px 16px 24px}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:8px 2px 14px}
-    .section-head h2{margin:0;font-size:21px;letter-spacing:.01em}
-    .section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
-    .eyebrow-dark{font-size:10px;letter-spacing:.15em;color:var(--green);font-weight:800}
-    .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:var(--shadow)}
-    .card h3{margin:0 0 5px;font-size:16px;line-height:1.4}
-    .card p{margin:5px 0;color:var(--muted);font-size:13px}
-    .card-top{display:flex;align-items:flex-start;gap:12px}
-    .date-box{flex:0 0 58px;background:var(--surface2);border-radius:13px;text-align:center;padding:8px 4px}
-    .date-box strong{display:block;font-size:18px;line-height:1.25}
-    .date-box span{font-size:10px;color:var(--muted)}
-    .card-main{flex:1;min-width:0}
-    .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
-    .tag{font-size:10px;border-radius:7px;padding:4px 7px;background:var(--surface2);color:var(--muted)}
-    .tag.green{background:light-dark(#e0eee4,#2b493c);color:var(--green-dark)}
-    .timeline{border-left:2px solid var(--line);margin:12px 0 0 6px;padding-left:14px}
-    .timeline-item{position:relative;padding:0 0 11px;font-size:13px}
-    .timeline-item:last-child{padding-bottom:0}
-    .timeline-item:before{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--orange);left:-19px;top:7px}
-    .timeline-item b{font-weight:700}
-    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
-    .btn{display:inline-flex;justify-content:center;align-items:center;gap:6px;text-decoration:none;border:1px solid var(--line);border-radius:11px;padding:9px 12px;background:var(--surface2);font-size:12px;font-weight:700;color:var(--text)}
-    .btn.primary{background:var(--green);color:#fff;border-color:transparent}
-    .small-note{font-size:11px;color:var(--muted);margin-top:9px}
-    .banner{padding:14px 15px;border-radius:16px;background:light-dark(#e6eee5,#263c32);border:1px solid var(--line);margin-bottom:14px}
-    .banner strong{display:block;font-size:13px;margin-bottom:4px}
-    .banner p{margin:0;color:var(--muted);font-size:12px}
-    .nav{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:light-dark(rgba(255,253,248,.94),rgba(28,34,31,.96));backdrop-filter:blur(18px);border-top:1px solid var(--line)}
-    .nav-inner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
-    .nav button{border:0;background:transparent;color:var(--muted);border-radius:12px;padding:7px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px}
-    .nav button .ico{font-size:19px;line-height:1.1}
-    .nav button.active{background:var(--surface2);color:var(--green-dark);font-weight:800}
-    .tab{display:none}
-    .tab.active{display:block;animation:fade .18s ease-out}
-    @keyframes fade{from{opacity:.65;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
-    .day-filter{display:flex;gap:7px;overflow:auto;padding:2px 1px 12px;scrollbar-width:none}
-    .day-filter::-webkit-scrollbar{display:none}
-    .day-filter button{white-space:nowrap;border:1px solid var(--line);border-radius:99px;padding:7px 11px;background:var(--surface);color:var(--muted);font-size:11px}
-    .day-filter button.active{background:var(--green);color:white;border-color:var(--green)}
-    .day-card{display:none}
-    .day-card.show{display:block}
-    .route-row{display:grid;grid-template-columns:42px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
-    .route-row:last-child{border-bottom:0}
-    .route-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--surface2);font-size:20px}
-    .route-row h3{font-size:14px;margin:0}
-    .route-row p{margin:3px 0;color:var(--muted);font-size:12px}
-    .hotel-price{font-weight:800;color:var(--green-dark);font-size:13px;margin-top:5px}
-    .checklist{display:grid;gap:8px}
-    .check-item{display:flex;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--line);padding:11px;border-radius:12px;font-size:13px}
-    .check-item input{accent-color:var(--green);width:18px;height:18px;margin:1px 0 0;flex:0 0 auto}
-    .check-item.done span{text-decoration:line-through;color:var(--muted)}
-    .progress{height:6px;border-radius:99px;background:var(--surface2);overflow:hidden;margin:10px 0 15px}
-    .progress span{display:block;height:100%;background:var(--green);width:0;transition:width .2s}
-    .budget-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
-    .budget-row:last-child{border-bottom:0}
-    .budget-row span:first-child{color:var(--muted)}
-    .budget-row strong{text-align:right}
-    .total{background:light-dark(#e4eee4,#2a4437);border-radius:14px;padding:14px;margin-top:10px}
-    .total span{font-size:12px;color:var(--muted)}
-    .total strong{display:block;font-size:23px;color:var(--green-dark);margin-top:2px}
-    .subhead{font-size:13px;font-weight:800;margin:18px 0 8px}
-    .footer-note{font-size:11px;color:var(--muted);text-align:center;padding:10px 8px 20px}
-    .app-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .install-btn{display:none}
-    .install-btn.show{display:inline-flex}
-    @media(min-width:600px){main{padding:24px}.hero{padding:30px 28px}.hero h1{font-size:36px}.hero-art{font-size:66px}.day-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.day-card{margin-bottom:0}.day-card .card{height:100%}}
-    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;animation:none!important;transition:none!important}}
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: var(--bg-dark);
+        --surface: var(--surface-dark);
+        --surface2: var(--surface2-dark);
+        --text: var(--text-dark);
+        --muted: var(--muted-dark);
+        --line: var(--line-dark);
+        --shadow: var(--shadow-dark);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", sans-serif;
+      line-height: 1.6;
+    }
+    button, a { font: inherit; }
+    button { cursor: pointer; border: none; }
+    a { color: inherit; text-decoration: none; }
+    .app {
+      max-width: 800px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding-bottom: calc(88px + env(safe-area-inset-bottom));
+      background: var(--bg);
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 32px 24px;
+      background: linear-gradient(135deg, #264e43 0%, #447b68 55%, #b9c9a7 100%);
+      color: #fff;
+      border-radius: 0 0 32px 32px;
+      box-shadow: 0 8px 24px rgba(27,43,35,.12);
+    }
+    .hero h1 {
+      font-size: 36px;
+      line-height: 1.2;
+      margin: 12px 0;
+      letter-spacing: .02em;
+      font-weight: 800;
+    }
+    .hero p {
+      font-size: 14px;
+      max-width: 420px;
+      margin: 0 0 16px;
+      opacity: .9;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,.3);
+      background: rgba(255,255,255,.12);
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    main { padding: 20px; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      margin: 24px 0 18px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: .15em;
+      color: var(--green);
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      transition: box-shadow .2s;
+    }
+    .card:hover {
+      box-shadow: 0 16px 40px rgba(27,43,35,.12);
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+    .card p {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .card-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .date-badge {
+      flex: 0 0 64px;
+      background: var(--surface2);
+      border-radius: 14px;
+      text-align: center;
+      padding: 10px 6px;
+      font-weight: 700;
+    }
+    .date-badge strong {
+      display: block;
+      font-size: 19px;
+      line-height: 1.2;
+    }
+    .date-badge span {
+      font-size: 11px;
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+    .tag {
+      font-size: 11px;
+      border-radius: 7px;
+      padding: 5px 9px;
+      background: var(--surface2);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .tag.green {
+      background: #e0eee4;
+      color: #244d41;
+    }
+    @media (prefers-color-scheme: dark) {
+      .tag.green {
+        background: #2b493c;
+        color: #9bc9ad;
+      }
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 14px;
+      background: var(--surface2);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      transition: all .2s;
+    }
+    .btn:active {
+      transform: scale(.96);
+    }
+    .btn.primary {
+      background: var(--green);
+      color: #fff;
+      border-color: transparent;
+    }
+    .btn.secondary {
+      background: transparent;
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .input-group {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    input[type="text"], textarea, input[type="date"], input[type="number"], select {
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .note-section {
+      background: #fffacd;
+      border-left: 4px solid #ffd700;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .note-section {
+        background: #332200;
+        border-left-color: #ffb700;
+        color: #ffc700;
+      }
+    }
+    .reminder {
+      background: #ffe6f0;
+      border-left: 4px solid #ff69b4;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    @media (prefers-color-scheme: dark) {
+      .reminder {
+        background: #3d0d1f;
+        border-left-color: #ff85c1;
+        color: #ffb3d9;
+      }
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow: auto;
+      padding: 12px 0;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 8px 14px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      transition: all .2s;
+    }
+    .tab-btn.active {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+    .tab-content { display: none; }
+    .tab-content.show { display: block; animation: slideIn .2s ease-out; }
+    @keyframes slideIn {
+      from { opacity: .6; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .checklist { display: grid; gap: 8px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .check-item:hover { background: var(--surface2); }
+    .check-item input[type="checkbox"] {
+      width: 18px; height: 18px; margin-top: 2px; flex: 0 0 auto; cursor: pointer; accent-color: var(--green);
+    }
+    .check-item.done span {
+      text-decoration: line-through;
+      color: var(--muted);
+      opacity: .6;
+    }
+    .progress-bar {
+      height: 6px; border-radius: 10px; background: var(--surface2); overflow: hidden; margin: 12px 0 16px;
+    }
+    .progress-bar-fill {
+      height: 100%; background: var(--green); transition: width .3s ease-out;
+    }
+    .progress-text { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .nav {
+      position: fixed; z-index: 20; bottom: 0; left: 0; right: 0; padding: 10px 8px calc(10px + env(safe-area-inset-bottom)); background: rgba(255, 253, 248, .96); backdrop-filter: blur(20px); border-top: 1px solid var(--line);
+    }
+    @media (prefers-color-scheme: dark) { .nav { background: rgba(28, 34, 31, .96); } }
+    .nav-inner {
+      max-width: 800px; margin: auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+    }
+    .nav-btn {
+      background: transparent; color: var(--muted); border-radius: 12px; padding: 8px 4px 6px; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10px; font-weight: 700; transition: all .2s;
+    }
+    .nav-btn.active { background: var(--surface2); color: var(--green); }
+    .nav-btn .ico { font-size: 20px; line-height: 1.1; }
+    .banner {
+      padding: 14px; border-radius: 14px; background: #e6eee5; border: 1px solid var(--line); margin-bottom: 16px;
+    }
+    @media (prefers-color-scheme: dark) { .banner { background: #263c32; } }
+    .banner strong { display: block; font-size: 13px; margin-bottom: 4px; }
+    .banner p { margin: 0; color: var(--muted); font-size: 12px; }
+    .footer {
+      text-align: center; font-size: 11px; color: var(--muted); padding: 20px 8px; margin-top: 24px;
+    }
+    .empty-state {
+      text-align: center; padding: 40px 20px; color: var(--muted);
+    }
+    .empty-state .ico { font-size: 48px; margin-bottom: 12px; }
+    .stats-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0;
+    }
+    .stat-box {
+      background: var(--surface2); border-radius: 12px; padding: 14px; text-align: center;
+    }
+    .stat-box strong { display: block; font-size: 18px; color: var(--green); margin-bottom: 4px; }
+    .stat-box span { font-size: 12px; color: var(--muted); }
+    @media (min-width: 600px) {
+      main { padding: 28px; }
+      .hero { padding: 40px 28px; }
+      .hero h1 { font-size: 40px; }
+      .section-head { margin: 28px 0 20px; }
+    }
   </style>
 </head>
 <body>
   <div class="app">
     <header class="hero">
-      <div class="eyebrow">TAIWAN · SLOW TRAVEL JOURNAL</div>
+      <div class="eyebrow">🌍 Taiwan · Slow Travel</div>
       <h1>台灣慢旅行</h1>
       <p>從新竹團聚、台北城市散步，到宜蘭山林溫泉。留一點空白，讓旅程更舒服。</p>
       <div class="hero-stats">
         <span class="pill">📅 2026.12.08 — 2027.01.12</span>
-        <span class="pill">🚆 城市交通＋家庭自駕</span>
+        <span class="pill">🚆 城市交通 + 家庭自駕</span>
         <span class="pill">🌿 慢遊・自然・美食</span>
       </div>
-      <div class="hero-art" aria-hidden="true">🏞️</div>
     </header>
 
     <main>
-      <section class="tab active" id="tab-days">
-        <div class="section-head"><div><div class="eyebrow-dark">YOUR ITINERARY</div><h2>每日行程</h2><p>依日期查看；戶外活動以天氣及開放狀況為準。</p></div></div>
-        <div class="banner"><strong>✦ 行程節奏</strong><p>台北連住同一間 6 晚；宜蘭礁溪 3 晚＋冬山／羅東 3 晚。宜蘭每天只排一個主要景點，預留泡湯和休息時間。</p></div>
-        <div class="day-filter" aria-label="行程分類">
-          <button class="active" data-filter="all">全部</button><button data-filter="hsinchu">新竹</button><button data-filter="taipei">台北</button><button data-filter="yilan">宜蘭</button><button data-filter="family">新竹／返澳</button>
+      <section id="days-section" class="page-section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">📋 Your Itinerary</div>
+            <h2>每日行程</h2>
+          </div>
         </div>
-        <div class="day-grid" id="dayGrid">
-          <article class="day-card show" data-city="hsinchu">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/8</strong><span>週二</span></div><div class="card-main"><h3>抵達台灣・回新竹休息</h3><div class="tag-row"><span class="tag green">低強度</span><span class="tag">新竹</span></div><p>抵達桃園機場 05:30。入境、領行李後回新竹，當天不安排正式觀光。</p></div></div><div class="timeline"><div class="timeline-item"><b>清晨</b>　桃園機場入境、取行李、網路／交通確認</div><div class="timeline-item"><b>上午</b>　回新竹、吃早餐或早午餐</div><div class="timeline-item"><b>下午</b>　補眠、陪家人、整理行李</div><div class="timeline-item"><b>晚上</b>　在家附近用餐，早點休息</div></div><div class="small-note">回新竹的交通方式及時間依家人接送、客運或台鐵安排確認。</div></div>
-          </article>
-          <article class="day-card show" data-city="hsinchu">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/9</strong><span>週三</span></div><div class="card-main"><h3>DR CYJ 頭皮養護</h3><div class="tag-row"><span class="tag green">必做清單</span><span class="tag">預約制／先確認</span></div><p>預約 DR CYJ 髮胜肽健髮中心新竹園區店；下午保留彈性。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　早餐、休息、前往門市</div><div class="timeline-item"><b>預約時段</b>　頭皮檢測／經典養護課程（時間以店家確認為準）</div><div class="timeline-item"><b>下午</b>　回家休息或陪家人</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=DR+CYJ+髮胜肽健髮中心+新竹園區店">📍 Google Maps 導航</a><a class="btn" target="_blank" rel="noopener" href="https://drcyjhcc.com.tw/course/%e7%b6%93%e5%85%b8%e9%a4%8a%e8%ad%b7%e8%aa%b2%e7%a8%8b/">課程資訊 ↗</a></div></div>
-          </article>
-          <article class="day-card show" data-city="hsinchu">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/10</strong><span>週四</span></div><div class="card-main"><h3>韓式證件照＋享鴨晚餐</h3><div class="tag-row"><span class="tag green">必做清單</span><span class="tag">兩項預約</span></div><p>先拍照，晚上和家人吃享鴨。兩個時段請預留足夠交通及等候時間。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　自然醒、早餐</div><div class="timeline-item"><b>中午／下午</b>　HOLO+FACE 新竹大遠百店拍攝；方案與妝髮時間待確認</div><div class="timeline-item"><b>下午</b>　大遠百附近休息、喝咖啡或回家</div><div class="timeline-item"><b>晚餐</b>　享鴨新竹北大店（建議先訂位）</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=HOLO+FACE+新竹大遠百店">📍 HOLO+FACE 導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.holoface.photos/">官網／預約 ↗</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=享鴨+新竹北大店">📍 享鴨導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="taipei">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/11</strong><span>週五</span></div><div class="card-main"><h3>新竹 → 台北・中山站</h3><div class="tag-row"><span class="tag green">城市散步</span><span class="tag">台北住宿第 1 晚</span></div><p>抵達台北後先到飯店寄放行李；第一天只逛飯店附近，不跨區趕行程。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　新竹搭高鐵至台北，轉乘到飯店</div><div class="timeline-item"><b>中午</b>　寄放行李、午餐</div><div class="timeline-item"><b>下午</b>　中山站、新光三越南西、赤峰街</div><div class="timeline-item"><b>晚上</b>　中山商圈晚餐、回飯店休息</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=中山站+赤峰街+台北">📍 中山／赤峰街導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="taipei">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/12</strong><span>週六</span></div><div class="card-main"><h3>龍山寺・西門町</h3><div class="tag-row"><span class="tag">週末熱門區</span><span class="tag">台北住宿第 2 晚</span></div><p>先走龍山寺周邊，再逛西門町；人潮多時可縮短停留。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　龍山寺及周邊街區</div><div class="timeline-item"><b>中午</b>　萬華或西門町午餐</div><div class="timeline-item"><b>下午</b>　西門町、紅樓、特色小店</div><div class="timeline-item"><b>晚上</b>　西門町晚餐後搭捷運回中山</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=龍山寺+台北">📍 龍山寺導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=西門町+台北">📍 西門町導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="taipei">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/13</strong><span>週日</span></div><div class="card-main"><h3>迪化街・大稻埕</h3><div class="tag-row"><span class="tag">歷史街區</span><span class="tag">台北住宿第 3 晚</span></div><p>以老街、傳統店舖、茶館和河岸為主；碼頭行程看天氣再決定。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　迪化街慢慢逛</div><div class="timeline-item"><b>中午</b>　在地小吃或台式料理</div><div class="timeline-item"><b>下午</b>　大稻埕街區、咖啡廳</div><div class="timeline-item"><b>傍晚</b>　天氣好再去大稻埕碼頭</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=迪化街+台北">📍 迪化街導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=大稻埕碼頭">📍 大稻埕碼頭導航</a></div><div class="small-note">雨天備案：街區商店、茶館、咖啡廳；不必硬去河岸。</div></div>
-          </article>
-          <article class="day-card show" data-city="taipei">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/14</strong><span>週一</span></div><div class="card-main"><h3>淡水一日遊</h3><div class="tag-row"><span class="tag green">捷運紅線</span><span class="tag">台北住宿第 4 晚</span></div><p>沿淡水老街與河岸慢慢走，夕陽行程視風雨決定。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　搭捷運至淡水</div><div class="timeline-item"><b>中午</b>　淡水老街吃小吃</div><div class="timeline-item"><b>下午</b>　紅毛城或小白宮擇一，再沿河岸散步</div><div class="timeline-item"><b>傍晚</b>　天氣許可再去漁人碼頭</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=淡水老街">📍 淡水老街導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=淡水漁人碼頭">📍 漁人碼頭導航</a></div><div class="small-note">雨天備案：老街、室內展館、咖啡廳。</div></div>
-          </article>
-          <article class="day-card show" data-city="taipei">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/15</strong><span>週二</span></div><div class="card-main"><h3>台北 101・信義區</h3><div class="tag-row"><span class="tag">城市景觀</span><span class="tag">台北住宿第 5 晚</span></div><p>百貨、街景與觀景台可彈性選擇；象山是天氣好且體力足夠才加選。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　台北 101 周邊</div><div class="timeline-item"><b>中午</b>　信義區午餐</div><div class="timeline-item"><b>下午</b>　信義商圈、城市散步</div><div class="timeline-item"><b>傍晚</b>　可選象山步道；下雨就改室內商場</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=台北101">📍 台北 101 導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=象山步道台北">📍 象山導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="taipei">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/16</strong><span>週三</span></div><div class="card-main"><h3>故宮／文創／自由日</h3><div class="tag-row"><span class="tag green">彈性日</span><span class="tag">台北住宿第 6 晚</span></div><p>選一個主要文化景點即可，不需要把所有候選景點都塞進一天。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　國立故宮博物院（若有興趣）</div><div class="timeline-item"><b>中午</b>　附近用餐或返回市區</div><div class="timeline-item"><b>下午</b>　松山文創園區或自由購物二選一</div><div class="timeline-item"><b>晚上</b>　中山附近晚餐、整理行李</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=國立故宮博物院">📍 故宮導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=松山文創園區">📍 松菸導航</a></div><div class="small-note">若不喜歡博物館，可改成北投或留在市區休息。</div></div>
-          </article>
-          <article class="day-card show" data-city="taipei">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/17</strong><span>週四</span></div><div class="card-main"><h3>台北退房 → 新竹</h3><div class="tag-row"><span class="tag green">移動日</span></div><p>退房後搭高鐵回新竹，隔天再前往宜蘭。今天不安排額外景點。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　早餐、退房</div><div class="timeline-item"><b>中午前後</b>　搭高鐵回新竹</div><div class="timeline-item"><b>下午</b>　陪家人、休息、準備宜蘭行李</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.thsrc.com.tw/">高鐵官網 ↗</a></div></div>
-          </article>
-          <article class="day-card show" data-city="yilan">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/18</strong><span>週五</span></div><div class="card-main"><h3>新竹 → 礁溪</h3><div class="tag-row"><span class="tag green">溫泉放鬆</span><span class="tag">礁溪住宿第 1 晚</span></div><p>家庭自駕出發，抵達後只散步、吃飯、泡湯。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　新竹出發，依路況安排休息</div><div class="timeline-item"><b>中午</b>　礁溪午餐、寄放行李</div><div class="timeline-item"><b>下午</b>　湯圍溝或溫泉公園附近散步</div><div class="timeline-item"><b>晚上</b>　入住、泡湯、早點休息</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=湯圍溝溫泉公園">📍 湯圍溝導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="yilan">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/19</strong><span>週六</span></div><div class="card-main"><h3>龍潭湖・泡湯休息</h3><div class="tag-row"><span class="tag green">慢步調</span><span class="tag">礁溪住宿第 2 晚</span></div><p>週末不安排熱門山區步道，選湖邊散步，下午回住宿休息。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　睡到自然醒、早餐</div><div class="timeline-item"><b>中午</b>　龍潭湖散步、拍照</div><div class="timeline-item"><b>下午</b>　回礁溪泡湯或午休</div><div class="timeline-item"><b>晚上</b>　自由晚餐，避開熱門夜市尖峰</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=龍潭湖+宜蘭">📍 龍潭湖導航</a></div><div class="small-note">下雨時取消湖邊散步，改為泡湯和室內休息。</div></div>
-          </article>
-          <article class="day-card show" data-city="yilan">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/20</strong><span>週日</span></div><div class="card-main"><h3>五峰旗瀑布（視天氣）</h3><div class="tag-row"><span class="tag">自然步道</span><span class="tag">礁溪住宿第 3 晚</span></div><p>天氣良好且步道開放才去；若人潮、雨勢或路面狀況不理想，就直接休息。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　五峰旗瀑布短程散步</div><div class="timeline-item"><b>中午</b>　礁溪午餐</div><div class="timeline-item"><b>下午</b>　泡湯、自由活動</div><div class="timeline-item"><b>晚上</b>　準備隔天換住宿</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=五峰旗瀑布">📍 五峰旗導航</a></div><div class="small-note">大雨、步道封閉或濕滑時不要勉強前往。</div></div>
-          </article>
-          <article class="day-card show" data-city="yilan">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/21</strong><span>週一</span></div><div class="card-main"><h3>礁溪 → 頭城 → 冬山／羅東</h3><div class="tag-row"><span class="tag green">換住宿日</span><span class="tag">第二段第 1 晚</span></div><p>路線順著北海岸走，選一個室內文化景點，海邊視天氣加選。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　退房、前往頭城</div><div class="timeline-item"><b>中午</b>　頭城老街附近午餐</div><div class="timeline-item"><b>下午</b>　蘭陽博物館；天氣好再去外澳</div><div class="timeline-item"><b>傍晚</b>　前往冬山／羅東住宿、晚餐</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=蘭陽博物館">📍 蘭陽博物館導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=外澳沙灘">📍 外澳導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="yilan">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/22</strong><span>週二</span></div><div class="card-main"><h3>傳統藝術中心・冬山河</h3><div class="tag-row"><span class="tag green">文化＋自然</span><span class="tag">第二段第 2 晚</span></div><p>若喜歡文化活動，上午逛傳藝中心；下午沿冬山河散步，或提早回住宿。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　國立傳統藝術中心</div><div class="timeline-item"><b>中午</b>　園區內或附近午餐</div><div class="timeline-item"><b>下午</b>　冬山河親水公園周邊散步（視開放情況）</div><div class="timeline-item"><b>晚上</b>　住宿附近晚餐、休息</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=國立傳統藝術中心宜蘭">📍 傳藝中心導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=冬山河親水公園">📍 冬山河導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="yilan">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/23</strong><span>週三</span></div><div class="card-main"><h3>梅花湖・冬山田野</h3><div class="tag-row"><span class="tag green">自然慢遊</span><span class="tag">第二段第 3 晚</span></div><p>湖邊散步、看田野，夜市視心情加選，不把一天塞滿。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　梅花湖散步</div><div class="timeline-item"><b>中午</b>　冬山或三星一帶午餐</div><div class="timeline-item"><b>下午</b>　鄉間景色、咖啡廳或回住宿休息</div><div class="timeline-item"><b>晚上</b>　想逛再去羅東夜市；不想人多就近用餐</div></div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=梅花湖宜蘭">📍 梅花湖導航</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=羅東夜市">📍 羅東夜市導航</a></div></div>
-          </article>
-          <article class="day-card show" data-city="yilan">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/24</strong><span>週四</span></div><div class="card-main"><h3>宜蘭 → 新竹</h3><div class="tag-row"><span class="tag green">返家日</span></div><p>早餐後退房，開車回新竹，為聖誕節留出休息時間。</p></div></div><div class="timeline"><div class="timeline-item"><b>上午</b>　早餐、退房</div><div class="timeline-item"><b>中午前後</b>　開車回新竹，依路況安排休息</div><div class="timeline-item"><b>下午</b>　回家、整理物品</div><div class="timeline-item"><b>晚上</b>　陪家人、休息</div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/25</strong><span>週五</span></div><div class="card-main"><h3>聖誕節・家庭時間</h3><div class="tag-row"><span class="tag green">留白日</span></div><p>和家人吃飯、休息，不安排跨縣市移動。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/26–27</strong><span>週末</span></div><div class="card-main"><h3>新竹附近自由活動</h3><p>陪家人、附近散步或在家休息，依大家心情安排。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/28–30</strong><span>週一–三</span></div><div class="card-main"><h3>健康檢查・牙齒清潔・個人事務</h3><p>先確認診所是否營業及是否需要預約；若有空腹檢查，依診所指示準備。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>12/31</strong><span>週四</span></div><div class="card-main"><h3>跨年夜</h3><p>建議留在新竹陪家人，不必特別前往熱門跨年人潮區。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>1/1</strong><span>週五</span></div><div class="card-main"><h3>元旦休息</h3><p>睡到自然醒、家庭時間，讓旅程有緩衝。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>1/2–3</strong><span>週末</span></div><div class="card-main"><h3>新竹／竹北輕鬆活動</h3><p>依天氣及家人時間選擇附近活動，不安排長途旅行。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>1/4–8</strong><span>週一–五</span></div><div class="card-main"><h3>家人時間・待辦事項</h3><p>完成尚未處理的事情、採買伴手禮，保留彈性。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>1/9–10</strong><span>週末</span></div><div class="card-main"><h3>整理行李</h3><p>確認行李重量、文件、充電器、藥品與伴手禮。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>1/11</strong><span>週一</span></div><div class="card-main"><h3>出發前緩衝日</h3><p>依 1/12 航班起飛時間決定是否住桃園機場附近；若班機較晚，可留在新竹。</p></div></div></div>
-          </article>
-          <article class="day-card show" data-city="family">
-            <div class="card"><div class="card-top"><div class="date-box"><strong>1/12</strong><span>週二</span></div><div class="card-main"><h3>回澳洲 ✈️</h3><p>依航班時間出發前往桃園機場。出發時間待機票確認後再填入。</p></div></div></div>
-          </article>
+
+        <div class="tabs" id="cityTabs">
+          <button class="tab-btn active" data-filter="all">全部</button>
+          <button class="tab-btn" data-filter="hsinchu">新竹</button>
+          <button class="tab-btn" data-filter="taipei">台北</button>
+          <button class="tab-btn" data-filter="yilan">宜蘭</button>
+          <button class="tab-btn" data-filter="family">新竹/返澳</button>
         </div>
+
+        <div class="banner">
+          <strong>✦ 行程節奏</strong>
+          <p>台北連住同一間 6 晚；宜蘭礁溪 3 晚 + 冬山/羅東 3 晚。宜蘭每天只排一個主要景點，預留泡湯和休息時間。</p>
+        </div>
+
+        <div id="itinerary"></div>
       </section>
 
-      <section class="tab" id="tab-transport">
-        <div class="section-head"><div><div class="eyebrow-dark">GETTING AROUND</div><h2>交通</h2><p>城市用大眾運輸；宜蘭以家庭自駕為主。</p></div></div>
+      <section id="todo-section" class="page-section" style="display:none;">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">✓ Checklist</div>
+            <h2>待辦事項</h2>
+          </div>
+        </div>
+
         <div class="card">
-          <div class="route-row"><div class="route-icon">✈️</div><div><h3>桃園機場 → 新竹（12/8）</h3><p>先確認家人接送或機場客運／台鐵轉乘方案。清晨抵達，預留通關、領行李及等車時間。</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=桃園國際機場&destination=新竹市&travelmode=transit">📍 規劃大眾運輸</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=桃園國際機場&destination=新竹市&travelmode=driving">開車路線 ↗</a></div></div></div>
-          <div class="route-row"><div class="route-icon">🚄</div><div><h3>新竹 ↔ 台北高鐵</h3><p>12/11 北上、12/17 南下。高鐵新竹站不等於台鐵新竹站，請先確認出發車站與接駁時間。</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.thsrc.com.tw/">高鐵官網／訂票 ↗</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=新竹高鐵站&destination=台北車站&travelmode=transit">📍 交通導航</a></div></div></div>
-          <div class="route-row"><div class="route-icon">🚇</div><div><h3>台北市區</h3><p>中山／雙連住宿為基地。西門町、淡水、信義區以捷運為主；悠遊卡可用於多數捷運、公車及部分交通支付。</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=中山站台北&destination=西門町&travelmode=transit">中山 → 西門町</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=中山站台北&destination=淡水老街&travelmode=transit">中山 → 淡水</a></div></div></div>
-          <div class="route-row"><div class="route-icon">🚗</div><div><h3>新竹 → 宜蘭（12/18）</h3><p>家庭自駕。路況會影響車程，建議預留休息時間；週末及假期前後出發前查看即時路況。</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=新竹市&destination=礁溪溫泉公園&travelmode=driving">📍 開啟開車導航</a></div></div></div>
-          <div class="route-row"><div class="route-icon">🚙</div><div><h3>宜蘭景點間移動</h3><p>12/18–24 家庭車輛為主。每天出發前確認停車、天氣、步道開放及景點營業時間。</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=礁溪&destination=梅花湖宜蘭&travelmode=driving">礁溪 → 梅花湖</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=冬山宜蘭&destination=新竹市&travelmode=driving">宜蘭 → 新竹</a></div></div></div>
-        </div>
-        <div class="banner"><strong>交通小提醒</strong><p>Google Maps 按鈕會開啟地圖／導航頁面；路線、車程與班次以出發當下顯示為準。跨縣市交通請勿只按地圖估時，記得預留轉乘與休息時間。</p></div>
-      </section>
-
-      <section class="tab" id="tab-stay">
-        <div class="section-head"><div><div class="eyebrow-dark">WHERE TO STAY</div><h2>住宿</h2><p>台北不換飯店；宜蘭分成溫泉區與田野區。</p></div></div>
-        <div class="card"><div class="card-top"><div class="route-icon">🏙️</div><div class="card-main"><h3>台北｜12/11–12/17（6 晚）</h3><p>首選中山站／雙連站附近，捷運方便、晚上吃飯選擇多。你和男友一間獨立雙人房。</p><div class="hotel-price">預算：NT$2,000–3,500／晚</div></div></div><div class="subhead">候選飯店（待查日期價格）</div><p><b>Royal Inn Taipei Nanxi</b><br>台北市中山區南京西路 1 號 8 樓</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Royal+Inn+Taipei+Nanxi">📍 查看位置</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=Royal+Inn+Taipei+Nanxi+2026+12+11+12+17">查房價 ↗</a></div><p style="margin-top:14px"><b>amba Taipei Zhongshan</b><br>台北市中山區中山北路二段 57-1 號</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=amba+Taipei+Zhongshan">📍 查看位置</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=amba+Taipei+Zhongshan+2026+12+11+12+17">查房價 ↗</a></div><div class="small-note">候選清單不是即時空房確認。比較含稅總價、免費取消、房間大小、寄放行李及距離捷運站步行時間。</div></div>
-        <div class="card"><div class="card-top"><div class="route-icon">♨️</div><div class="card-main"><h3>礁溪｜12/18–12/21（3 晚）</h3><p>優先選有房內溫泉浴池或可使用溫泉設施的雙人房；住宿以放鬆為主。</p><div class="hotel-price">目標：NT$2,000–3,500／晚</div></div></div><p><b>參考：Wellspring by Silks Jiaoxi</b><br>宜蘭縣礁溪鄉溫泉路 67 號</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Wellspring+by+Silks+Jiaoxi">📍 查看位置</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=Wellspring+by+Silks+Jiaoxi+2026+12+18+12+21">查房價 ↗</a></div><div class="small-note">可能超出預算，請比較其他礁溪溫泉旅館。務必確認房型是否有私人浴池、停車及取消條款。</div></div>
-        <div class="card"><div class="card-top"><div class="route-icon">🌿</div><div class="card-main"><h3>冬山／羅東｜12/21–12/24（3 晚）</h3><p>找安靜、停車方便的住宿。想更親近自然可選冬山民宿；想吃飯方便可選羅東周邊。</p><div class="hotel-price">目標：NT$2,000–3,500／晚</div></div></div><p><b>參考：村却國際溫泉酒店 Cuncyue</b><br>宜蘭縣羅東鎮站東路 190 號</p><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Cuncyue+Hot+Spring+Resort">📍 查看位置</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=Cuncyue+Hot+Spring+Resort+2026+12+21+12+24">查房價 ↗</a></div><div class="small-note">可能超出預算，亦可選冬山安靜民宿。你們和家人分房；家人的住宿費另計。</div></div>
-        <div class="banner"><strong>訂房前逐項確認</strong><p>日期與晚數正確、兩位入住的獨立雙人房、總價含稅、停車方式、溫泉設施、入住／退房時間、取消政策。尚未預訂任何住宿。</p></div>
-      </section>
-
-      <section class="tab" id="tab-packing">
-        <div class="section-head"><div><div class="eyebrow-dark">PACKING CHECKLIST</div><h2>行李清單</h2><p>可點選勾選；進度只保存在目前瀏覽器。</p></div></div>
-        <div class="card"><h3>重要文件</h3><div class="progress"><span id="progressBar"></span></div><p id="progressText">已完成 0 項</p><div class="checklist" data-group="文件">
-          <label class="check-item"><input type="checkbox"><span>護照、澳洲簽證／返澳所需文件</span></label>
-          <label class="check-item"><input type="checkbox"><span>機票資訊、住宿地址及聯絡方式</span></label>
-          <label class="check-item"><input type="checkbox"><span>旅遊保險資料、緊急聯絡資訊</span></label>
-          <label class="check-item"><input type="checkbox"><span>預約確認：DR CYJ、HOLO+FACE、享鴨</span></label>
-        </div></div>
-        <div class="card"><h3>電子用品</h3><div class="checklist">
-          <label class="check-item"><input type="checkbox"><span>手機、充電器、行動電源</span></label>
-          <label class="check-item"><input type="checkbox"><span>澳洲／台灣適用的充電設備與線材</span></label>
-          <label class="check-item"><input type="checkbox"><span>手機網路／eSIM 或漫遊方案</span></label>
-          <label class="check-item"><input type="checkbox"><span>耳機、相機（如需要）</span></label>
-        </div></div>
-        <div class="card"><h3>衣物與日常用品</h3><div class="checklist">
-          <label class="check-item"><input type="checkbox"><span>冬季外套、保暖層、長褲</span></label>
-          <label class="check-item"><input type="checkbox"><span>防水外套／雨傘、好走的防滑鞋</span></label>
-          <label class="check-item"><input type="checkbox"><span>換洗衣物、睡衣、襪子、內衣</span></label>
-          <label class="check-item"><input type="checkbox"><span>洗漱用品、保養品、防曬</span></label>
-          <label class="check-item"><input type="checkbox"><span>個人常用藥品及必要處方資訊</span></label>
-          <label class="check-item"><input type="checkbox"><span>可折疊購物袋、日用小包、水瓶</span></label>
-        </div></div>
-        <div class="card"><h3>出發前最後檢查</h3><div class="checklist">
-          <label class="check-item"><input type="checkbox"><span>確認行李重量及航空公司規定</span></label>
-          <label class="check-item"><input type="checkbox"><span>確認 1/12 航班時間與前往機場方式</span></label>
-          <label class="check-item"><input type="checkbox"><span>確認宜蘭天氣、步道開放及停車資訊</span></label>
-          <label class="check-item"><input type="checkbox"><span>準備伴手禮空間，留意食品入境規定</span></label>
-        </div></div>
-        <div class="app-actions">
-          <button class="btn" id="resetChecks" type="button">重設所有勾選</button>
-          <button class="btn install-btn" id="installBtn" type="button">安裝到主畫面</button>
+          <div class="input-group">
+            <input type="text" id="todoInput" placeholder="新增待辦事項...">
+            <button class="btn primary" onclick="addTodo()">＋</button>
+          </div>
+          <div class="progress-bar"><div class="progress-bar-fill" id="todoProgress" style="width:0%"></div></div>
+          <div class="progress-text" id="todoText">已完成 0 項</div>
+          <div class="checklist" id="todoList"></div>
         </div>
       </section>
 
-      <section class="tab" id="tab-budget">
-        <div class="section-head"><div><div class="eyebrow-dark">TRIP ESTIMATE</div><h2>預算</h2><p>初步估算，以新台幣計；非即時報價。</p></div></div>
-        <div class="card"><h3>台北｜兩人 6 晚</h3><div class="budget-row"><span>住宿</span><strong>NT$12,000–21,000</strong></div><div class="budget-row"><span>餐飲＋市區交通</span><strong>NT$21,000–35,000</strong></div><div class="budget-row"><span>新竹—台北高鐵來回（兩人）</span><strong>約 NT$1,160</strong></div><div class="budget-row"><span>門票、咖啡及額外活動</span><strong>NT$3,000–8,000</strong></div><div class="total"><span>台北兩人估算合計</span><strong>NT$37,160–65,160</strong></div></div>
-        <div class="card"><h3>宜蘭｜兩人 6 晚</h3><div class="budget-row"><span>住宿</span><strong>NT$12,000–21,000</strong></div><div class="budget-row"><span>餐飲（7 天）</span><strong>NT$7,000–12,600</strong></div><div class="budget-row"><span>門票、泡湯及額外活動</span><strong>NT$1,500–4,000</strong></div><div class="budget-row"><span>家庭車輛油費／停車分攤</span><strong>待確認</strong></div><div class="total"><span>宜蘭兩人估算小計（不含車費）</span><strong>NT$20,500–37,600</strong></div></div>
-        <div class="card"><h3>預算尚未包含</h3><div class="budget-row"><span>國際機票</span><strong>未計</strong></div><div class="budget-row"><span>新竹日常開銷、健康檢查、牙齒清潔</span><strong>未計</strong></div><div class="budget-row"><span>DR CYJ 頭皮養護、HOLO+FACE 拍攝</span><strong>待詢價</strong></div><div class="budget-row"><span>享鴨餐費及家人分攤</span><strong>依人數／點餐</strong></div><div class="budget-row"><span>購物、伴手禮、保險、網路</span><strong>未計</strong></div><div class="small-note">建議另外預留約 10–15% 彈性預算。住宿以每晚目標價估算，旺日、房型及稅費可能令實際金額不同。</div></div>
+      <section id="reminders-section" class="page-section" style="display:none;">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">🔔 Reminders</div>
+            <h2>重要提醒</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="input-group">
+            <input type="text" id="reminderInput" placeholder="新增提醒...">
+            <button class="btn primary" onclick="addReminder()">＋</button>
+          </div>
+          <div id="reminderList"></div>
+        </div>
       </section>
-      <div class="footer-note">Taiwan Slow Travel · 行程草案版<br>預約、價格、營業時間、天氣與交通請於出發前再次確認。</div>
+
+      <section id="notes-section" class="page-section" style="display:none;">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">📝 Travel Notes</div>
+            <h2>旅遊日誌</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: var(--muted);">日期</label>
+            <input type="date" id="noteDate" style="width: 100%; margin-bottom: 12px;">
+          </div>
+          <textarea id="noteContent" placeholder="記下今天的旅遊日誌..."></textarea>
+          <button class="btn primary" onclick="saveNote()" style="margin-top: 10px;">儲存日誌</button>
+          <div id="notesList" style="margin-top: 16px;"></div>
+        </div>
+      </section>
+
+      <section id="budget-section" class="page-section" style="display:none;">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">💰 Budget</div>
+            <h2>預算追蹤</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">項目名稱</div>
+          <input type="text" id="expenseName" placeholder="例：飯店" style="width: 100%; margin-bottom: 10px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div>
+              <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px;">金額 (TWD)</div>
+              <input type="number" id="expenseAmount" placeholder="0" style="width: 100%;">
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px;">分類</div>
+              <select id="expenseCategory" style="width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--surface); color: var(--text);">
+                <option value="住宿">住宿</option>
+                <option value="餐飲">餐飲</option>
+                <option value="交通">交通</option>
+                <option value="活動">活動</option>
+                <option value="購物">購物</option>
+                <option value="其他">其他</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn primary" onclick="addExpense()" style="width: 100%;">新增支出</button>
+          <div id="budgetSummary" style="margin-top: 20px;"></div>
+        </div>
+      </section>
+
+      <section id="settings-section" class="page-section" style="display:none;">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">⚙️ Settings</div>
+            <h2>設定</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="margin-bottom: 16px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="darkMode" style="width: 20px; height: 20px;">
+              <span>深色模式</span>
+            </label>
+          </div>
+
+          <button class="btn secondary" onclick="exportData()" style="width: 100%; margin-bottom: 10px;">匯出所有資料</button>
+          <button class="btn secondary" onclick="clearAllData()" style="width: 100%; margin-bottom: 10px; color: #d32f2f;">清除所有資料</button>
+          <button class="btn primary" onclick="installApp()" id="installBtn" style="width: 100%; display: none;">安裝應用程式</button>
+        </div>
+      </section>
+
+      <div class="footer">Taiwan Slow Travel · Made with ❤️<br>所有資料已自動保存到你的設備</div>
     </main>
 
-    <nav class="nav" aria-label="底部導覽">
+    <nav class="nav">
       <div class="nav-inner">
-        <button class="active" data-tab="days"><span class="ico">🗓️</span><span>每日行程</span></button>
-        <button data-tab="transport"><span class="ico">🚆</span><span>交通</span></button>
-        <button data-tab="stay"><span class="ico">🛏️</span><span>住宿</span></button>
-        <button data-tab="packing"><span class="ico">🎒</span><span>行李</span></button>
-        <button data-tab="budget"><span class="ico">💰</span><span>預算</span></button>
+        <button class="nav-btn active" data-section="days-section"><span class="ico">📋</span><span>行程</span></button>
+        <button class="nav-btn" data-section="todo-section"><span class="ico">✓</span><span>待辦</span></button>
+        <button class="nav-btn" data-section="reminders-section"><span class="ico">🔔</span><span>提醒</span></button>
+        <button class="nav-btn" data-section="notes-section"><span class="ico">📝</span><span>日誌</span></button>
+        <button class="nav-btn" data-section="budget-section"><span class="ico">💰</span><span>預算</span></button>
       </div>
     </nav>
   </div>
 
   <script>
-    (function(){
-      const navButtons = [...document.querySelectorAll('.nav button')];
-      const tabs = [...document.querySelectorAll('.tab')];
-      navButtons.forEach(btn => btn.addEventListener('click', () => {
-        navButtons.forEach(b => b.classList.toggle('active', b === btn));
-        tabs.forEach(t => t.classList.toggle('active', t.id === 'tab-' + btn.dataset.tab));
-        window.scrollTo({top:0,behavior:'smooth'});
-      }));
+    const ITINERARY_DATA = [
+      { date: '12/8', day: '週二', city: 'hsinchu', title: '抵達台灣・回新竹休息', tags: ['低強度', '新竹'], desc: '抵達桃園機場 05:30。入境、領行李後回新竹，當天不安排正式觀光。' },
+      { date: '12/9', day: '週三', city: 'hsinchu', title: 'DR CYJ 頭皮養護', tags: ['必做清單', '預約制'], desc: '預約 DR CYJ 髮胜肽健髮中心新竹園區店；下午保留彈性。' },
+      { date: '12/10', day: '週四', city: 'hsinchu', title: '韓式證件照 + 享鴨晚餐', tags: ['必做清單', '兩項預約'], desc: '先拍照，晚上和家人吃享鴨。兩個時段請預留足夠交通及等候時間。' },
+      { date: '12/11', day: '週五', city: 'taipei', title: '新竹 → 台北・中山站', tags: ['城市散步', '台北第 1 晚'], desc: '抵達台北後先到飯店寄放行李；第一天只逛飯店附近，不跨區趕行程。' },
+      { date: '12/12', day: '週六', city: 'taipei', title: '龍山寺・西門町', tags: ['週末熱門', '台北第 2 晚'], desc: '先走龍山寺周邊，再逛西門町；人潮多時可縮短停留。' },
+      { date: '12/13', day: '週日', city: 'taipei', title: '迪化街・大稻埕', tags: ['歷史街區', '台北第 3 晚'], desc: '以老街、傳統店舖、茶館和河岸為主；碼頭行程看天氣再決定。' },
+      { date: '12/14', day: '週一', city: 'taipei', title: '淡水一日遊', tags: ['捷運紅線', '台北第 4 晚'], desc: '沿淡水老街與河岸慢慢走，夕陽行程視風雨決定。' },
+      { date: '12/15', day: '週二', city: 'taipei', title: '台北 101・信義區', tags: ['城市景觀', '台北第 5 晚'], desc: '百貨、街景與觀景台可彈性選擇；象山是天氣好且體力足夠才加選。' },
+      { date: '12/16', day: '週三', city: 'taipei', title: '故宮／文創／自由日', tags: ['彈性日', '台北第 6 晚'], desc: '選一個主要文化景點即可，不需要把所有候選景點都塞進一天。' },
+      { date: '12/17', day: '週四', city: 'taipei', title: '台北退房 → 新竹', tags: ['移動日'], desc: '退房後搭高鐵回新竹，隔天再前往宜蘭。今天不安排額外景點。' },
+      { date: '12/18', day: '週五', city: 'yilan', title: '新竹 → 礁溪', tags: ['溫泉放鬆', '礁溪第 1 晚'], desc: '家庭自駕出發，抵達後只散步、吃飯、泡湯。' },
+      { date: '12/19', day: '週六', city: 'yilan', title: '龍潭湖・泡湯休息', tags: ['慢步調', '礁溪第 2 晚'], desc: '週末不安排熱門山區步道，選湖邊散步，下午回住宿休息。' },
+      { date: '12/20', day: '週日', city: 'yilan', title: '五峰旗瀑布（視天氣）', tags: ['自然步道', '礁溪第 3 晚'], desc: '天氣良好且步道開放才去；若人潮、雨勢或路面狀況不理想，就直接休息。' },
+      { date: '12/21', day: '週一', city: 'yilan', title: '礁溪 → 頭城 → 冬山', tags: ['換住宿日', '第二段第 1 晚'], desc: '路線順著北海岸走，選一個室內文化景點，海邊視天氣加選。' },
+      { date: '12/22', day: '週二', city: 'yilan', title: '傳統藝術中心・冬山河', tags: ['文化＋自然', '第二段第 2 晚'], desc: '若喜歡文化活動，上午逛傳藝中心；下午沿冬山河散步。' },
+      { date: '12/23', day: '週三', city: 'yilan', title: '梅花湖・冬山田野', tags: ['自然慢遊', '第二段第 3 晚'], desc: '湖邊散步、看田野，夜市視心情加選，不把一天塞滿。' },
+      { date: '12/24', day: '週四', city: 'yilan', title: '宜蘭 → 新竹', tags: ['返家日'], desc: '早餐後退房，開車回新竹，為聖誕節留出休息時間。' },
+      { date: '12/25', day: '週五', city: 'family', title: '聖誕節・家庭時間', tags: ['留白日'], desc: '和家人吃飯、休息，不安排跨縣市移動。' },
+      { date: '1/12', day: '週二', city: 'family', title: '回澳洲 ✈️', tags: ['啟程'], desc: '依航班時間出發前往桃園機場。出發時間待機票確認後再填入。' },
+    ];
 
-      const filterButtons = [...document.querySelectorAll('.day-filter button')];
-      const dayCards = [...document.querySelectorAll('.day-card')];
-      filterButtons.forEach(btn => btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.toggle('active', b === btn));
-        dayCards.forEach(card => card.classList.toggle('show', btn.dataset.filter === 'all' || card.dataset.city === btn.dataset.filter));
-      }));
+    let currentFilter = 'all';
+    let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+    let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    let expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
 
-      const checks = [...document.querySelectorAll('.check-item input')];
-      const bar = document.getElementById('progressBar');
-      const progressText = document.getElementById('progressText');
-      function updateProgress(){
-        const n = checks.filter(c => c.checked).length;
-        bar.style.width = (checks.length ? n / checks.length * 100 : 0) + '%';
-        progressText.textContent = `已完成 ${n} / ${checks.length} 項`;
-        checks.forEach(c => c.closest('.check-item').classList.toggle('done', c.checked));
-      }
-      checks.forEach((c,i) => {
-        try { c.checked = localStorage.getItem('tw-trip-check-' + i) === '1'; } catch(e){}
-        c.addEventListener('change', () => {
-          try { localStorage.setItem('tw-trip-check-' + i, c.checked ? '1' : '0'); } catch(e){}
-          updateProgress();
+    function initItinerary() {
+      renderItinerary();
+      document.querySelectorAll('#cityTabs .tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#cityTabs .tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          renderItinerary();
         });
       });
-      document.getElementById('resetChecks').addEventListener('click', () => {
-        checks.forEach((c,i) => { c.checked = false; try { localStorage.removeItem('tw-trip-check-' + i); } catch(e){} });
-        updateProgress();
-      });
-      updateProgress();
+    }
 
-      let deferredPrompt = null;
-      const installBtn = document.getElementById('installBtn');
-      window.addEventListener('beforeinstallprompt', (event) => {
-        event.preventDefault();
-        deferredPrompt = event;
-        installBtn.classList.add('show');
+    function renderItinerary() {
+      const container = document.getElementById('itinerary');
+      const filtered = ITINERARY_DATA.filter(item => currentFilter === 'all' || item.city === currentFilter);
+      container.innerHTML = filtered.map(item => `
+        <div class="card">
+          <div class="card-row">
+            <div class="date-badge"><strong>${item.date}</strong><span>${item.day}</span></div>
+            <div style="flex:1;">
+              <h3>${item.title}</h3>
+              <div class="tags">
+                ${item.tags.map(t => `<span class="tag ${t.includes('必做') || t.includes('放鬆') ? 'green' : ''}">${t}</span>`).join('')}
+              </div>
+              <p>${item.desc}</p>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn secondary" onclick="addToTodo('${item.title.replace(/'/g, "\\'")}')">加入待辦</button>
+            <button class="btn secondary" onclick="addNote('${item.date} ${item.title.replace(/'/g, "\\'")}')">寫日誌</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addTodo() {
+      const input = document.getElementById('todoInput');
+      if (!input.value.trim()) return;
+      todos.push({ id: Date.now(), text: input.value.trim(), done: false });
+      localStorage.setItem('todos', JSON.stringify(todos));
+      input.value = '';
+      renderTodos();
+    }
+    function addToTodo(text) {
+      todos.push({ id: Date.now(), text, done: false });
+      localStorage.setItem('todos', JSON.stringify(todos));
+      renderTodos();
+      showSection('todo-section');
+    }
+    function toggleTodo(id) {
+      todos = todos.map(t => t.id === id ? { ...t, done: !t.done } : t);
+      localStorage.setItem('todos', JSON.stringify(todos));
+      renderTodos();
+    }
+    function deleteTodo(id) {
+      todos = todos.filter(t => t.id !== id);
+      localStorage.setItem('todos', JSON.stringify(todos));
+      renderTodos();
+    }
+    function renderTodos() {
+      const list = document.getElementById('todoList');
+      const done = todos.filter(t => t.done).length;
+      document.getElementById('todoText').textContent = `已完成 ${done} / ${todos.length} 項`;
+      document.getElementById('todoProgress').style.width = (todos.length ? (done / todos.length) * 100 : 0) + '%';
+      if (todos.length === 0) {
+        list.innerHTML = '<div class="empty-state"><div class="ico">✓</div><p>沒有待辦事項</p></div>';
+        return;
+      }
+      list.innerHTML = todos.map(t => `
+        <label class="check-item ${t.done ? 'done' : ''}">
+          <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTodo(${t.id})">
+          <span style="flex:1;">${t.text}</span>
+          <button class="btn" onclick="deleteTodo(${t.id})" style="font-size:10px;padding:4px 8px;">✕</button>
+        </label>
+      `).join('');
+    }
+
+    function addReminder() {
+      const input = document.getElementById('reminderInput');
+      if (!input.value.trim()) return;
+      reminders.push({ id: Date.now(), text: input.value.trim(), time: new Date().toLocaleString('zh-TW') });
+      localStorage.setItem('reminders', JSON.stringify(reminders));
+      input.value = '';
+      renderReminders();
+    }
+    function deleteReminder(id) {
+      reminders = reminders.filter(r => r.id !== id);
+      localStorage.setItem('reminders', JSON.stringify(reminders));
+      renderReminders();
+    }
+    function renderReminders() {
+      const list = document.getElementById('reminderList');
+      if (reminders.length === 0) {
+        list.innerHTML = '<div class="empty-state"><div class="ico">🔔</div><p>沒有提醒</p></div>';
+        return;
+      }
+      list.innerHTML = reminders.map(r => `
+        <div class="reminder">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+            <div style="flex:1;">
+              <div>${r.text}</div>
+              <div style="font-size:11px;opacity:.7;margin-top:4px;">${r.time}</div>
+            </div>
+            <button class="btn" onclick="deleteReminder(${r.id})" style="font-size:10px;padding:4px 8px;">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function saveNote() {
+      const date = document.getElementById('noteDate').value;
+      const content = document.getElementById('noteContent').value.trim();
+      if (!date || !content) return;
+      notes.push({ id: Date.now(), date, content });
+      localStorage.setItem('notes', JSON.stringify(notes));
+      document.getElementById('noteContent').value = '';
+      renderNotes();
+    }
+    function addNote(prefix) {
+      document.getElementById('noteDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('noteContent').value = `${prefix}\n\n`;
+      showSection('notes-section');
+    }
+    function deleteNote(id) {
+      notes = notes.filter(n => n.id !== id);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      renderNotes();
+    }
+    function renderNotes() {
+      const list = document.getElementById('notesList');
+      if (notes.length === 0) {
+        list.innerHTML = '';
+        return;
+      }
+      list.innerHTML = '<div style="margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px;">' + notes.map(n => `
+        <div class="note-section">
+          <strong>${n.date}</strong>
+          <p style="margin: 8px 0 0; white-space: pre-wrap;">${n.content}</p>
+          <button class="btn" onclick="deleteNote(${n.id})" style="font-size:10px;padding:4px 8px;margin-top:8px;">刪除</button>
+        </div>
+      `).join('') + '</div>';
+    }
+
+    function addExpense() {
+      const name = document.getElementById('expenseName').value.trim();
+      const amount = parseFloat(document.getElementById('expenseAmount').value);
+      const category = document.getElementById('expenseCategory').value;
+      if (!name || !amount) return;
+      expenses.push({ id: Date.now(), name, amount, category, date: new Date().toLocaleDateString('zh-TW') });
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+      document.getElementById('expenseName').value = '';
+      document.getElementById('expenseAmount').value = '';
+      renderBudget();
+    }
+    function deleteExpense(id) {
+      expenses = expenses.filter(e => e.id !== id);
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+      renderBudget();
+    }
+    function renderBudget() {
+      const summary = document.getElementById('budgetSummary');
+      if (expenses.length === 0) {
+        summary.innerHTML = '<div class="empty-state"><div class="ico">💰</div><p>尚無支出記錄</p></div>';
+        return;
+      }
+      const byCategory = {};
+      expenses.forEach(e => {
+        byCategory[e.category] = (byCategory[e.category] || 0) + e.amount;
       });
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
+      const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+      summary.innerHTML = `
+        <div style="margin-bottom:16px;">
+          <strong>分類統計</strong>
+          <div class="stats-row">
+            ${Object.entries(byCategory).map(([cat, amt]) => `
+              <div class="stat-box"><strong>NT$${amt.toLocaleString()}</strong><span>${cat}</span></div>
+            `).join('')}
+          </div>
+        </div>
+        <div style="background: var(--surface2); border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 16px;">
+          <div style="font-size:12px; color: var(--muted); margin-bottom:4px;">總支出</div>
+          <div style="font-size:28px; font-weight:800; color: var(--green);">NT$${total.toLocaleString()}</div>
+        </div>
+        <div style="max-height: 240px; overflow-y: auto;">
+          ${expenses.map(e => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;">
+              <div>
+                <strong>${e.name}</strong><br>
+                <span style="color: var(--muted); font-size: 11px;">${e.category} • ${e.date}</span>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-weight:700; color: var(--green);">NT$${e.amount.toLocaleString()}</div>
+                <button class="btn" onclick="deleteExpense(${e.id})" style="font-size:9px;padding:3px 6px;margin-top:4px;">刪除</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function showSection(id) {
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.style.display = section.id === id ? 'block' : 'none';
+      });
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.section === id);
+      });
+    }
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => showSection(btn.dataset.section));
+    });
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('installBtn').style.display = 'inline-flex';
+    });
+    function installApp() {
+      if (deferredPrompt) {
         deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        installBtn.classList.remove('show');
-      });
-
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js').catch(() => {});
-        });
+        deferredPrompt.userChoice.then(() => { deferredPrompt = null; document.getElementById('installBtn').style.display = 'none'; });
       }
-    })();
+    }
+
+    function exportData() {
+      const data = { todos, reminders, notes, expenses };
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `taiwan-travel-${new Date().toISOString().split('T')[0]}.json`; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearAllData() {
+      if (confirm('確定要清除所有資料嗎？此動作無法復原。')) {
+        localStorage.clear();
+        todos = []; reminders = []; notes = []; expenses = [];
+        renderTodos(); renderReminders(); renderNotes(); renderBudget();
+      }
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+    }
+
+    initItinerary();
+    renderTodos();
+    renderReminders();
+    renderNotes();
+    renderBudget();
   </script>
 </body>
 </html>
-
